@@ -8,6 +8,7 @@ a node and jQuery project
 在api_server目录下
 
 ```
+npm install
 npx nodemon .\app.js
 ```
 
