@@ -1,6 +1,8 @@
 # newsletter
 a node and jQuery project
 
+向mysql中导入sql文件
+
 运行接口：
 
 在api_server目录下
