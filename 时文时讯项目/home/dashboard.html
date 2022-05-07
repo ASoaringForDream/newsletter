@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>图表统计</title>
+  <link rel="stylesheet" href="../../assets/lib/bootstrap.css" />
+  <link rel="stylesheet" href="../../assets/lib/main.css" />
+  <script src="../../assets/lib/jquery.js"></script>
+  <script type="text/javascript" src="../../assets/lib/echarts.min.js"></script>
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="row spannel_list">
+      <div class="col-sm-3 col-xs-6">
+        <div class="spannel">
+          <em>10015</em><span>篇</span>
+          <b>总文章数</b>
+        </div>
+      </div>
+      <div class="col-sm-3 col-xs-6">
+        <div class="spannel scolor01">
+          <em>219</em><span>篇</span>
+          <b>日新增文章数</b>
+        </div>
+      </div>
+      <div class="col-sm-3 col-xs-6">
+        <div class="spannel scolor02">
+          <em>353824</em><span>条</span>
+          <b>评论总数</b>
+        </div>
+      </div>
+      <div class="col-sm-3 col-xs-6">
+        <div class="spannel scolor03">
+          <em>123</em><span>条</span>
+          <b>日新增评论数</b>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row curve-pie">
+      <div class="col-lg-8 col-md-8">
+        <div class="gragh_pannel" id="curve_show"></div>
+      </div>
+      <div class="col-lg-4 col-md-4">
+        <div class="gragh_pannel" id="pie_show"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="column_pannel" id="column_show"></div>
+  </div>
+
+  <script>
+    var oChart = echarts.init(document.getElementById('curve_show'));
+    var aList_all = [
+      { 'count': 36, 'date': '2022-03-13' },
+      { 'count': 52, 'date': '2022-03-14' },
+      { 'count': 78, 'date': '2022-03-15' },
+      { 'count': 85, 'date': '2022-03-16' },
+      { 'count': 65, 'date': '2022-03-17' },
+      { 'count': 72, 'date': '2022-03-18' },
+      { 'count': 88, 'date': '2022-03-19' },
+      { 'count': 64, 'date': '2022-03-20' },
+      { 'count': 72, 'date': '2022-03-21' },
+      { 'count': 90, 'date': '2022-03-22' },
+      { 'count': 96, 'date': '2022-03-23' },
+      { 'count': 100, 'date': '2022-03-24' },
+      { 'count': 102, 'date': '2022-03-25' },
+      { 'count': 110, 'date': '2022-03-26' },
+      { 'count': 123, 'date': '2022-03-27' },
+      { 'count': 100, 'date': '2022-03-28' },
+      { 'count': 132, 'date': '2022-03-29' },
+      { 'count': 146, 'date': '2022-03-30' },
+      { 'count': 200, 'date': '2022-04-01' },
+      { 'count': 180, 'date': '2022-04-02' },
+      { 'count': 163, 'date': '2022-04-03' },
+      { 'count': 110, 'date': '2022-04-04' },
+      { 'count': 80, 'date': '2022-04-05' },
+      { 'count': 82, 'date': '2022-04-06' },
+      { 'count': 70, 'date': '2022-04-07' },
+      { 'count': 65, 'date': '2022-04-08' },
+      { 'count': 54, 'date': '2022-04-09' },
+      { 'count': 40, 'date': '2022-04-10' },
+      { 'count': 45, 'date': '2022-04-11' },
+      { 'count': 38, 'date': '2022-04-12' },
+    ];
+
+    let aCount = [];
+    let aDate = [];
+
+    for (var i = 0; i < aList_all.length; i++) {
+      aCount.push(aList_all[i].count);
+      aDate.push(aList_all[i].date);
+    }
+
+    var chartopt = {
+      title: {
+        text: '日新增文章数',
+        left: 'center',
+        top: '10'
+      },
+      tooltip: {
+        trigger: 'axis'
+      },
+      legend: {
+        data: ['新增文章'],
+        top: '40'
+      },
+      toolbox: {
+        show: true,
+        feature: {
+          mark: { show: true },
+          dataView: { show: true, readOnly: false },
+          magicType: { show: true, type: ['line', 'bar'] },
+          restore: { show: true },
+          saveAsImage: { show: true }
+        }
+      },
+      calculable: true,
+      xAxis: [
+        {
+          name: '日',
+          type: 'category',
+          boundaryGap: false,
+          data: aDate
+        }
+      ],
+      yAxis: [
+        {
+          name: '日新增文章数',
+          type: 'value'
+        }
+      ],
+      series: [
+        {
+          name: '新增文章',
+          type: 'line',
+          smooth: true,
+          itemStyle: { normal: { areaStyle: { type: 'default' }, color: '#f80' }, lineStyle: { color: '#f80' } },
+          data: aCount
+        }],
+      areaStyle: {
+        normal: {
+          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+            offset: 0,
+            color: 'rgba(255,136,0,0.39)'
+          }, {
+            offset: .34,
+            color: 'rgba(255,180,0,0.25)'
+          }, {
+            offset: 1,
+            color: 'rgba(255,222,0,0.00)'
+          }])
+
+        }
+      },
+      grid: {
+        show: true,
+        x: 50,
+        x2: 50,
+        y: 80,
+        height: 220
+      }
+    };
+
+    oChart.setOption(chartopt);
+
+
+    var oPie = echarts.init(document.getElementById('pie_show'));
+    var oPieopt =
+    {
+      title: {
+        text: '文章分类分布图',
+        left: 'center'
+      },
+      color:['#62d1de','#54d6b6','#a6db69','#ffd454','#ffa361','#d1d1d1','#2bb6db'],
+      tooltip: {
+        trigger: 'item',
+        formatter: '{a} <br/>{b} : {c} ({d}%)'
+      },
+      legend: {
+        top: '5%',
+        left: 'center'
+      },
+      toolbox: {
+        show: true,
+        feature: {
+          mark: { show: true },
+          dataView: { show: true, readOnly: false },
+          restore: { show: true },
+          saveAsImage: { show: true }
+        }
+      },
+      series: [
+        {
+          name: '文章分类',
+          type: 'pie',
+          radius: [20, 100],
+          center: ['50%', '50%'],
+          roseType: 'area',
+          itemStyle: {
+            borderRadius: 5
+          },
+          data: [
+            { value: 80, name: '文化' },
+            { value: 102, name: '生活' },
+            { value: 99, name: '科技' },
+            { value: 65, name: '历史' },
+            { value: 73, name: '人文' },
+            { value: 40, name: '社会' },
+            { value: 28, name: '其他' },
+          ]
+        }
+      ]
+    };
+    oPie.setOption(oPieopt);
+
+
+
+    var oColumn = this.echarts.init(document.getElementById('column_show'));
+    var oColumnopt =
+    {
+      title: {
+        text: '文章访问量',
+        left: 'center',
+        top: '10'
+      },
+      tooltip: {
+        trigger: 'axis'
+      },
+      legend: {
+        data: ['历史', '科技', '文化', '生活','人文','社会','其他'],
+        top: '40'
+      },
+      toolbox: {
+        show: true,
+        feature: {
+          mark: { show: true },
+          dataView: { show: true, readOnly: false },
+          magicType: { show: true, type: ['line', 'bar'] },
+          restore: { show: true },
+          saveAsImage: { show: true }
+        }
+      },
+      calculable: true,
+      xAxis: [
+        {
+          type: 'category',
+          data: ['11月','12月', '1月', '2月', '3月', '4月']
+        }
+      ],
+      yAxis: [
+        {
+          name: '访问量',
+          type: 'value'
+        }
+      ],
+      series: [
+        {
+          name: '历史',
+          type: 'bar',
+          barWidth: 20,
+          itemStyle: {
+            normal: { areaStyle: { type: 'default' }, color: '#fd956a' }
+          },
+          data: [672,800, 708, 920, 1090, 1200]
+        },
+        {
+          name: '科技',
+          type: 'bar',
+          barWidth: 20,
+          itemStyle: {
+            normal: { areaStyle: { type: 'default' }, color: '#2bb6db' }
+          },
+          data: [377,400, 468, 520, 690, 800]
+        },
+        {
+          name: '文化',
+          type: 'bar',
+          barWidth: 20,
+          itemStyle: {
+            normal: { areaStyle: { type: 'default' }, color: '#13cfd5' }
+          },
+          data: [494,500, 668, 520, 790, 900]
+        },
+        {
+          name: '生活',
+          type: 'bar',
+          barWidth: 20,
+          itemStyle: {
+            normal: { areaStyle: { type: 'default' }, color: '#00ce68' }
+          },
+          data: [328,432, 508, 658, 823, 1228]
+        },
+        {
+          name: '人文',
+          type: 'bar',
+          barWidth: 20,
+          itemStyle: {
+            normal: { areaStyle: { type: 'default' }, color: '#33e5e3' }
+          },
+          data: [403,518, 521, 623, 810, 1143]
+        },
+        {
+          name: '社会',
+          type: 'bar',
+          barWidth: 20,
+          itemStyle: {
+            normal: { areaStyle: { type: 'default' }, color: '#cb30c5' }
+          },
+          data: [434,472, 534, 699, 873, 1002]
+        },
+        {
+          name: '其他',
+          type: 'bar',
+          barWidth: 20,
+          itemStyle: {
+            normal: { areaStyle: { type: 'default' }, color: '#edbf1c' }
+          },
+          data: [199,188, 300, 432, 623, 852]
+        }
+      ],
+      grid: {
+        show: true,
+        x: 50,
+        x2: 30,
+        y: 80,
+        height: 260
+      },
+      dataZoom: [//给x轴设置滚动条
+        {
+          start: 0,//默认为0
+          end: 100 - 1000 / 31,//默认为100
+          type: 'slider',
+          show: true,
+          xAxisIndex: [0],
+          handleSize: 0,//滑动条的 左右2个滑动条的大小
+          height: 8,//组件高度
+          left: 45, //左边的距离
+          right: 50,//右边的距离
+          bottom: 26,//右边的距离
+          handleColor: '#ddd',//h滑动图标的颜色
+          handleStyle: {
+            borderColor: "#cacaca",
+            borderWidth: "1",
+            shadowBlur: 2,
+            background: "#ddd",
+            shadowColor: "#ddd",
+          }
+        }]
+    };
+    oColumn.setOption(oColumnopt);
+  </script>
+</body>
+
+</html>

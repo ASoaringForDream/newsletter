@@ -1,0 +1,26 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  padding: 15px;
+  background-color: #f2f3f5;
+}
+
+#submit-item {
+  padding-top: 60px;
+}
+#form-edit {
+  padding-top: 20px;
+}
+.layui-btn {
+  margin-left: 0 !important;
+}
+#article-view h1 {
+  text-align: center;
+}
+.layui-layer-content {
+  text-indent: 20px;
+}
